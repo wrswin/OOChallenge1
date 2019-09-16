@@ -1,6 +1,6 @@
 namespace Challenge1 {
     public class Square : Quadrilateral {
-        public Square(int side1Length, string colour) : base(side1Length, side1Length, side1Length, side1Length, colour) {
+        public Square(string colour, int side1Length) : base(colour, side1Length, side1Length, side1Length, side1Length) {
             
         }
 

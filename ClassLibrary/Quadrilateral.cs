@@ -5,7 +5,7 @@ namespace Challenge1 {
         public int Side3Length;
         public int Side4Length;
 
-        public Quadrilateral(int side1Length, int side2Length, int side3Length, int side4Length, string colour) : base(colour) {
+        public Quadrilateral(string colour, int side1Length, int side2Length, int side3Length, int side4Length) : base(colour) {
             Side1Length = side1Length;
             Side2Length = side2Length;
             Side3Length = side3Length;
