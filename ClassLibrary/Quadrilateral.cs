@@ -10,6 +10,10 @@ namespace Challenge1 {
             Side2Length = side2Length;
             Side3Length = side3Length;
             Side4Length = side4Length;
+
+            if(side1Length <= 0 || side2Length <= 0 || side3Length <= 0 || side4Length <= 0) {
+                throw new NonPositiveLengthException();
+            }
         }
 
         public int GetPerimeter() {

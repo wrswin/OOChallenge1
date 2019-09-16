@@ -34,9 +34,21 @@ namespace Challenge1.ConsoleApp {
 
                             var colour = Console.ReadLine();
 
-                            var side1Length = RetrieveIntegerLength("side");
+                            while(true) {
+                                var side1Length = RetrieveIntegerLength("side");
 
-                            shapes.Add(new Square(colour, side1Length));
+                                try {
+                                    shapes.Add(new Square(colour, side1Length));
+                                } catch(NonPositiveLengthException) {
+                                    Console.WriteLine("Length must be positive");
+
+                                    continue;
+                                }
+
+                                break;
+                            }
+
+                            Console.WriteLine("Successfully created EquilateralTriangle");
 
                             Console.WriteLine("Successfully created Square");
                         } break;
@@ -46,11 +58,23 @@ namespace Challenge1.ConsoleApp {
 
                             var colour = Console.ReadLine();
 
-                            var side1Length = RetrieveIntegerLength("side 1");
+                            while(true) {
+                                var side1Length = RetrieveIntegerLength("side 1");
 
-                            var side2Length = RetrieveIntegerLength("side 2");
+                                var side2Length = RetrieveIntegerLength("side 2");
 
-                            shapes.Add(new Rectangle(colour, side1Length, side2Length));
+                                try {
+                                    shapes.Add(new Rectangle(colour, side1Length, side2Length));
+                                } catch(NonPositiveLengthException) {
+                                    Console.WriteLine("Lengths must be positive");
+
+                                    continue;
+                                }
+
+                                break;
+                            }
+
+                            Console.WriteLine("Successfully created EquilateralTriangle");
 
                             Console.WriteLine("Successfully created Rectangle");
                         } break;
@@ -60,11 +84,23 @@ namespace Challenge1.ConsoleApp {
 
                             var colour = Console.ReadLine();
 
-                            var side1Length = RetrieveFloatLength("side 1");
+                            while(true) {
+                                var side1Length = RetrieveFloatLength("side 1");
 
-                            var side2Length = RetrieveFloatLength("side 2");
+                                var side2Length = RetrieveFloatLength("side 2");
 
-                            shapes.Add(new RightAngleTriangle(colour, side1Length, side2Length));
+                                try {
+                                    shapes.Add(new RightAngleTriangle(colour, side1Length, side2Length));
+                                } catch(NonPositiveLengthException) {
+                                    Console.WriteLine("Length must be positive");
+
+                                    continue;
+                                }
+
+                                break;
+                            }
+
+                            Console.WriteLine("Successfully created EquilateralTriangle");
 
                             Console.WriteLine("Successfully created RightAngleTriangle");
                         } break;
@@ -76,7 +112,13 @@ namespace Challenge1.ConsoleApp {
 
                             var side1Length = RetrieveFloatLength("side");
 
-                            shapes.Add(new EquilateralTriangle(colour, side1Length));
+                            try {
+                                shapes.Add(new EquilateralTriangle(colour, side1Length));
+                            } catch(NonPositiveLengthException) {
+                                Console.WriteLine("Length must be positive");
+
+                                continue;
+                            }
 
                             Console.WriteLine("Successfully created EquilateralTriangle");
                         } break;
@@ -201,17 +243,9 @@ namespace Challenge1.ConsoleApp {
                 try {
                     var length = int.Parse(lengthText);
 
-                    if(length < 1) {
-                        throw new NonPositiveLengthException();
-                    }
-
                     return length;
                 } catch(FormatException) {
                     Console.WriteLine("Please enter an integer");
-
-                    continue;
-                } catch(NonPositiveLengthException) {
-                    Console.WriteLine("Length must be positive");
 
                     continue;
                 }
@@ -231,17 +265,9 @@ namespace Challenge1.ConsoleApp {
                         throw new DecimalLengthException();
                     }
 
-                    if(length < 1) {
-                        throw new NonPositiveLengthException();
-                    }
-
                     return length;
                 } catch(FormatException) {
                     Console.WriteLine("Please enter an integer");
-
-                    continue;
-                } catch(NonPositiveLengthException) {
-                    Console.WriteLine("Length must be positive");
 
                     continue;
                 } catch(DecimalLengthException) {
