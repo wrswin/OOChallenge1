@@ -68,6 +68,9 @@ namespace Challenge1.Tests {
             
             Assert.AreEqual(area, sq5.GetArea());
             Assert.AreEqual(perimeter, sq5.GetPerimeter());
+
+            Assert.Throws<NonPositiveLengthException>(() => new Square("Turquoise", 0));
+            Assert.Throws<NonPositiveLengthException>(() => new Square("Turquoise", -1));
         }
 
         [Test]
@@ -101,6 +104,9 @@ namespace Challenge1.Tests {
             
             Assert.AreEqual(area, rec5.GetArea());
             Assert.AreEqual(perimeter, rec5.GetPerimeter());
+
+            Assert.Throws<NonPositiveLengthException>(() => new Rectangle("Cornflower Blue", 0, 1));
+            Assert.Throws<NonPositiveLengthException>(() => new Rectangle("Cornflower Blue", 1, -1));
         }
         
     }

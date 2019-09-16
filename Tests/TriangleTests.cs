@@ -35,6 +35,8 @@ namespace Challenge1.Tests {
             Assert.AreEqual(Math.Round(area,2), Math.Round(ra2.GetArea(),2));
             Assert.AreEqual(Math.Round(perimeter,2), Math.Round(ra2.GetPerimeter(), 2));
 
+            Assert.Throws<NonPositiveLengthException>(() => new RightAngleTriangle("Aquamarine", 0, 1));
+            Assert.Throws<NonPositiveLengthException>(() => new RightAngleTriangle("Aquamarine", 1, -1));
         }
         
         [Test]
@@ -50,6 +52,9 @@ namespace Challenge1.Tests {
             
             Assert.AreEqual(Math.Round(area,2), Math.Round(eq2.GetArea(),2));
             Assert.AreEqual(Math.Round(perimeter,2), Math.Round(eq2.GetPerimeter(), 2));
+
+            Assert.Throws<NonPositiveLengthException>(() => new EquilateralTriangle("Beige", 0));
+            Assert.Throws<NonPositiveLengthException>(() => new EquilateralTriangle("Beige", -1));
         }
     }
 }
