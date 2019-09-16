@@ -146,8 +146,8 @@ namespace Challenge1.ConsoleApp {
                 try {
                     var length = int.Parse(lengthText);
 
-                    if(length < 0) {
-                        throw new NegativeLengthException();
+                    if(length < 1) {
+                        throw new NonPositiveLengthException();
                     }
 
                     return length;
@@ -155,8 +155,8 @@ namespace Challenge1.ConsoleApp {
                     Console.WriteLine("Please enter an integer");
 
                     continue;
-                } catch(NegativeLengthException) {
-                    Console.WriteLine("Length must be positive ");
+                } catch(NonPositiveLengthException) {
+                    Console.WriteLine("Length must be positive");
 
                     continue;
                 }
