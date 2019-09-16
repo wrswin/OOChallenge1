@@ -9,8 +9,10 @@ namespace Challenge1.ConsoleApp {
             while(true) {
                 Console.WriteLine("1: Create Square");
                 Console.WriteLine("2: Create Rectangle");
-                Console.WriteLine("3: View Shape");
-                Console.WriteLine("4: Exit");
+                Console.WriteLine("3: Create RightAngleTriangle");
+                Console.WriteLine("4: Create EquilateralTriangle");
+                Console.WriteLine("5: View Shape");
+                Console.WriteLine("6: Exit");
 
                 while(true) {
                     Console.Write("Choose menu entry: ");
@@ -32,7 +34,7 @@ namespace Challenge1.ConsoleApp {
 
                             var colour = Console.ReadLine();
 
-                            var side1Length = RetrieveLength("side");
+                            var side1Length = RetrieveIntegerLength("side");
 
                             shapes.Add(new Square(colour, side1Length));
 
@@ -44,9 +46,9 @@ namespace Challenge1.ConsoleApp {
 
                             var colour = Console.ReadLine();
 
-                            var side1Length = RetrieveLength("side 1");
+                            var side1Length = RetrieveIntegerLength("side 1");
 
-                            var side2Length = RetrieveLength("side 2");
+                            var side2Length = RetrieveIntegerLength("side 2");
 
                             shapes.Add(new Rectangle(colour, side1Length, side2Length));
 
@@ -54,6 +56,32 @@ namespace Challenge1.ConsoleApp {
                         } break;
 
                         case 3: {
+                            Console.Write("Enter colour: ");
+
+                            var colour = Console.ReadLine();
+
+                            var side1Length = RetrieveFloatLength("side 1");
+
+                            var side2Length = RetrieveFloatLength("side 2");
+
+                            shapes.Add(new RightAngleTriangle(colour, side1Length, side2Length));
+
+                            Console.WriteLine("Successfully created RightAngleTriangle");
+                        } break;
+
+                        case 4: {
+                            Console.Write("Enter colour: ");
+
+                            var colour = Console.ReadLine();
+
+                            var side1Length = RetrieveFloatLength("side");
+
+                            shapes.Add(new EquilateralTriangle(colour, side1Length));
+
+                            Console.WriteLine("Successfully created EquilateralTriangle");
+                        } break;
+
+                        case 5: {
                             if(shapes.Count == 0) {
                                 Console.WriteLine("There are no shapes to view");
                             } else {
@@ -87,6 +115,33 @@ namespace Challenge1.ConsoleApp {
                                 var shape = shapes[shapeIndex - 1];
 
                                 switch(shape) {
+                                    case RightAngleTriangle rightAngleTriangle: {
+                                        Console.WriteLine($"Side 1 length: {rightAngleTriangle.Side1Length}");
+                                        Console.WriteLine($"Side 2 length: {rightAngleTriangle.Side2Length}");
+                                        Console.WriteLine($"Side 3 length: {rightAngleTriangle.Side3Length}");
+                                        Console.WriteLine($"Colour: {rightAngleTriangle.Colour}");
+
+                                        Console.WriteLine($"Perimeter: {rightAngleTriangle.GetPerimeter()}");
+                                        Console.WriteLine($"Area: {rightAngleTriangle.GetArea()}");
+                                    } break;
+
+                                    case EquilateralTriangle equilateralTriangle: {
+                                        Console.WriteLine($"Side 1 length: {equilateralTriangle.Side1Length}");
+                                        Console.WriteLine($"Colour: {equilateralTriangle.Colour}");
+
+                                        Console.WriteLine($"Perimeter: {equilateralTriangle.GetPerimeter()}");
+                                        Console.WriteLine($"Area: {equilateralTriangle.GetArea()}");
+                                    } break;
+
+                                    case Triangle triangle: {
+                                        Console.WriteLine($"Side 1 length: {triangle.Side1Length}");
+                                        Console.WriteLine($"Side 2 length: {triangle.Side2Length}");
+                                        Console.WriteLine($"Side 3 length: {triangle.Side3Length}");
+                                        Console.WriteLine($"Colour: {triangle.Colour}");
+
+                                        Console.WriteLine($"Perimeter: {triangle.GetPerimeter()}");
+                                    } break;
+
                                     case Square square: {
                                         Console.WriteLine($"Side length: {square.Side1Length}");
                                         Console.WriteLine($"Colour: {square.Colour}");
@@ -121,7 +176,7 @@ namespace Challenge1.ConsoleApp {
                             }
                         } break;
 
-                        case 4: {
+                        case 6: {
                             return;
                         } break;
 
@@ -137,7 +192,7 @@ namespace Challenge1.ConsoleApp {
             }
         }
 
-        public static int RetrieveLength(string name) {
+        public static int RetrieveIntegerLength(string name) {
             while(true) {
                 Console.Write($"Enter {name} length: ");
 
@@ -157,6 +212,40 @@ namespace Challenge1.ConsoleApp {
                     continue;
                 } catch(NonPositiveLengthException) {
                     Console.WriteLine("Length must be positive");
+
+                    continue;
+                }
+            }
+        }
+
+        public static float RetrieveFloatLength(string name) {
+            while(true) {
+                Console.Write($"Enter {name} length: ");
+
+                var lengthText = Console.ReadLine();
+
+                try {
+                    var length = float.Parse(lengthText);
+
+                    if((float)Math.Floor(length) != length) {
+                        throw new DecimalLengthException();
+                    }
+
+                    if(length < 1) {
+                        throw new NonPositiveLengthException();
+                    }
+
+                    return length;
+                } catch(FormatException) {
+                    Console.WriteLine("Please enter an integer");
+
+                    continue;
+                } catch(NonPositiveLengthException) {
+                    Console.WriteLine("Length must be positive");
+
+                    continue;
+                } catch(DecimalLengthException) {
+                    Console.WriteLine("Length must not be decimal");
 
                     continue;
                 }
